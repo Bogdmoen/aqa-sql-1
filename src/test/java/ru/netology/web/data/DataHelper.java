@@ -1,5 +1,6 @@
 package ru.netology.web.data;
 
+import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,12 +8,17 @@ import lombok.Value;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataHelper {
     private DataHelper() {
     }
+
+    private Faker faker = new Faker(new Locale("ru"));
+    private static final String loginForTest = "vasya";
+    private static final String passwordForTest = "qwerty123";
 
     @Data
     @NoArgsConstructor
@@ -50,6 +56,14 @@ public class DataHelper {
 
     public static void cleanAll() throws SQLException {
         DataBase.cleanAll();
+    }
+
+    public static String returnLoginForTest() {
+        return loginForTest;
+    }
+
+    public static String returnPasswordForTest() {
+        return passwordForTest;
     }
 
 

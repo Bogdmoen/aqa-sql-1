@@ -79,7 +79,6 @@ public class DataBase {
             runner.update(conn, clearCode);
             runner.update(conn, clearUser);
         }
-
     }
 
 
