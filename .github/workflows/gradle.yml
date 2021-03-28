@@ -22,8 +22,10 @@ jobs:
         java-version: '11'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Docker set up
-      run: docker-compose up -d &
+    - name: set up container
+      uses: isbang/compose-action@v0.1
+      with:
+        compose-file: './docker-compose.yml'
     - name: install
       run: java -jar ./artifacts/app-deadline.jar &
     - name: Build with Gradle
