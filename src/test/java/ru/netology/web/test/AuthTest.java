@@ -62,4 +62,5 @@ public class AuthTest {
         loginPage.loginFieldSub.shouldHave(Condition.text(loginPage.fieldSubEmptyText));
         loginPage.passwordFieldSub.shouldNotBe(Condition.visible);
     }
+
 }

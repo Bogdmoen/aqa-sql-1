@@ -4,13 +4,10 @@ import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class DataHelper {
     private DataHelper() {
@@ -66,5 +63,16 @@ public class DataHelper {
         return passwordForTest;
     }
 
+    public static List<CardInfo> returnCardsForUser() throws SQLException {
+        return DataBase.returnCardsForUser(getUserId(returnLoginForTest()));
+    }
+
+    public static int returnCardBalance(String cardNumber) throws SQLException {
+        return DataBase.returnCardInfo(cardNumber).getBalance();
+    }
+
+    public static void cleanCode() throws SQLException {
+        DataBase.cleanCode();
+    }
 
 }
