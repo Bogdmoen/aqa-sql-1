@@ -1,6 +1,5 @@
 package ru.netology.web.data;
 
-import com.codeborne.selenide.commands.ToString;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -57,7 +56,7 @@ public class RestHandler {
                 .toString();
     }
 
-    public static List<CardInfo> getCardInfo(String token) {
+    public static List<DataHelper.CardInfo> getCardInfo(String token) {
         JsonPath jsonPath = RestAssured.given()
                 .spec(requestSpec)
                 .auth()
@@ -69,7 +68,7 @@ public class RestHandler {
                 .extract()
                 .body()
                 .jsonPath();
-        return jsonPath.getList("", CardInfo.class);
+        return jsonPath.getList("", DataHelper.CardInfo.class);
     }
 
 

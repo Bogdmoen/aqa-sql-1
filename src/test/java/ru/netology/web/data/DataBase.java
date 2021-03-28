@@ -5,10 +5,10 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.*;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,18 +84,18 @@ public class DataBase {
                 "jdbc:mysql://localhost:3306/app", "app", "pass");
         )
         {
-        return runner.query(conn, querySQL, new BeanListHandler<>(CardInfo.class), userId);
+        return runner.query(conn, querySQL, new BeanListHandler<>(DataHelper.CardInfo.class), userId);
         }
     }
 
-    public static CardInfo returnCardInfo(String cardNumber) throws SQLException {
+    public static DataHelper.CardInfo returnCardInfo(String cardNumber) throws SQLException {
         QueryRunner runner = new QueryRunner();
         String querySQL = "SELECT id, number, ROUND (balance_in_kopecks / 100) as balance FROM cards WHERE number = ?;";
         try (val conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/app", "app", "pass");
         )
         {
-            return runner.query(conn, querySQL, new BeanHandler<>(CardInfo.class), cardNumber);
+            return runner.query(conn, querySQL, new BeanHandler<>(DataHelper.CardInfo.class), cardNumber);
         }
     }
 

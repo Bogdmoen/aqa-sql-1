@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,6 +27,14 @@ public class DataHelper {
         private String password;
         private String status;
 
+    }
+
+    @Data
+    @RequiredArgsConstructor
+    public static class CardInfo {
+        private String id;
+        private String number;
+        private int balance;
     }
 
     @Data
