@@ -51,11 +51,6 @@ public class ApplicationTest {
         }
 
         @Test
-        public void shouldDeleteFromTable()  {
-            DataBase.cleanAll();
-        }
-
-        @Test
         public void shouldAuth()  {
             loginPage.enterLogin(returnLoginForTest());
             loginPage.enterPassword(returnPasswordForTest());
