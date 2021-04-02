@@ -38,7 +38,7 @@ public class DataHelper {
         private String code;
     }
 
-    public static List<UserInfo> getUsers(String login) throws SQLException {
+    public static List<UserInfo> getUsers(String login) {
         return DataBase.getUsers();
     }
 
@@ -50,11 +50,11 @@ public class DataHelper {
         return getUserByLogin(login).getId();
     }
 
-    public static String getCode(String userId) throws SQLException {
+    public static String getCode(String userId) {
         return DataBase.getAuthCode(userId).getCode();
     }
 
-    public static void cleanAll() throws SQLException {
+    public static void cleanAll() {
         DataBase.cleanAll();
     }
 

@@ -23,7 +23,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Docker set up
-      run: docker-compose up -d &
+      run: docker-compose up -d
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
       with:

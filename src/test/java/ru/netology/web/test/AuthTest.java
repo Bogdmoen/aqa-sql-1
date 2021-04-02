@@ -5,12 +5,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataBase;
-import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
 import ru.netology.web.page.VerificationPage;
-
-import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.*;
 import static ru.netology.web.data.DataHelper.*;
@@ -21,13 +18,19 @@ public class AuthTest {
     DashboardPage dashboardPage;
 
 
+    @BeforeEach
+    public void setUp() {
+        open("http://localhost:9999");
+        loginPage = new LoginPage();
+    }
+
     @AfterAll
-    public static void CleanAll() throws SQLException {
+    public static void CleanAll()  {
         DataBase.cleanAll();
     }
 
     @Test
-    public void shouldAuth() throws SQLException {
+    public void shouldAuth() {
         loginPage.enterLogin(returnLoginForTest());
         loginPage.enterPassword(returnPasswordForTest());
         loginPage.clickConfirmButton();

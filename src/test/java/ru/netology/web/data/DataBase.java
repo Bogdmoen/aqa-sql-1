@@ -8,16 +8,17 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.*;
 import java.sql.SQLException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 import static ru.netology.web.data.DataHelper.*;
 
 public class DataBase {
     private DataBase() {}
 
-    public static List<UserInfo> getUsers() throws SQLException {
+    public static List<UserInfo> getUsers() {
+        List<UserInfo> users = new ArrayList<>();
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT * FROM users;";
 
@@ -27,10 +28,13 @@ public class DataBase {
 
       )
       {
-          List<UserInfo> users = runner.query(conn, dataSQL, new BeanListHandler<>(UserInfo.class));
-          return users;
-      }
+          users = runner.query(conn, dataSQL, new BeanListHandler<>(UserInfo.class));
 
+      }
+        catch (SQLException e) {
+          e.printStackTrace();
+        }
+        return users;
       }
 
     public static UserInfo getUser(String login) {
@@ -53,7 +57,8 @@ public class DataBase {
        return user;
     }
 
-    public static VerificationCode getAuthCode(String userId) throws SQLException {
+    public static VerificationCode getAuthCode(String userId) {
+        VerificationCode code = new VerificationCode();
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT * FROM auth_codes where user_id = ?;";
         try (val conn = DriverManager.getConnection(
@@ -61,12 +66,16 @@ public class DataBase {
 
                 )
         {
-            return runner.query(conn, dataSQL, new BeanHandler<>(VerificationCode.class), userId);
+            code =  runner.query(conn, dataSQL, new BeanHandler<>(VerificationCode.class), userId);
         }
-
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        return code;
     }
 
-    public static void cleanAll() throws SQLException {
+    public static void cleanAll() {
         QueryRunner runner = new QueryRunner();
         String clearUser = "DELETE FROM users";
         String clearCode = "DELETE FROM auth_codes;";
@@ -83,7 +92,10 @@ public class DataBase {
             runner.update(conn, clearCode);
             runner.update(conn, clearUser);
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
     }
-
 
 }
