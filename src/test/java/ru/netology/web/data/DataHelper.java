@@ -42,11 +42,11 @@ public class DataHelper {
         return DataBase.getUsers();
     }
 
-    public static UserInfo getUserByLogin(String login) throws SQLException {
+    public static UserInfo getUserByLogin(String login) {
         return DataBase.getUser(login);
     }
 
-    public static String getUserId(String login) throws SQLException {
+    public static String getUserId(String login) {
         return getUserByLogin(login).getId();
     }
 

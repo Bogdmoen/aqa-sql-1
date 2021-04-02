@@ -33,7 +33,8 @@ public class DataBase {
 
       }
 
-    public static UserInfo getUser(String login) throws SQLException {
+    public static UserInfo getUser(String login) {
+        UserInfo user = new UserInfo();
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT * FROM users where login = ?;";
         ResultSetHandler<UserInfo>  userInfoResultSetHandler = new BeanHandler<UserInfo>(UserInfo.class);
@@ -43,10 +44,13 @@ public class DataBase {
 
         )
         {
-            UserInfo user = runner.query(conn, dataSQL, userInfoResultSetHandler, login);
-            return user;
-        }
+            user =  runner.query(conn, dataSQL, userInfoResultSetHandler, login);
 
+        }
+        catch (SQLException e) {
+            System.out.println(e);
+        }
+       return user;
     }
 
     public static VerificationCode getAuthCode(String userId) throws SQLException {
