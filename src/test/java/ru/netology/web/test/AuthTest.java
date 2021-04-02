@@ -22,7 +22,7 @@ public class AuthTest {
 
 
     @AfterAll
-    public void CleanAll() throws SQLException {
+    public static void CleanAll() throws SQLException {
         DataBase.cleanAll();
     }
 
