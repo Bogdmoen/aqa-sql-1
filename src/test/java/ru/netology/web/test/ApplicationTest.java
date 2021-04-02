@@ -35,28 +35,28 @@ public class ApplicationTest {
         }
 
         @Test
-        public void shouldGetUserInfo() throws SQLException {
+        public void shouldGetUserInfo() {
             DataBase.getUsers();
         }
 
         @Test
-        public void shouldReturnUser() throws SQLException {
+        public void shouldReturnUser() {
             DataHelper.UserInfo result = DataHelper.getUserByLogin("vasya");
             System.out.println(result);
         }
 
         @Test
-        public void shouldGetCode() throws SQLException {
+        public void shouldGetCode() {
             System.out.println("=" + DataBase.getAuthCode("8f6b8826-fdd4-4249-ab4a-9419ab4873e4"));
         }
 
         @Test
-        public void shouldDeleteFromTable() throws SQLException {
+        public void shouldDeleteFromTable()  {
             DataBase.cleanAll();
         }
 
         @Test
-        public void shouldAuth() throws SQLException {
+        public void shouldAuth()  {
             loginPage.enterLogin(returnLoginForTest());
             loginPage.enterPassword(returnPasswordForTest());
             loginPage.clickConfirmButton();

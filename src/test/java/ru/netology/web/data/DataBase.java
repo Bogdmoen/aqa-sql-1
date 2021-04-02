@@ -8,10 +8,8 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.*;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static ru.netology.web.data.DataHelper.*;
 
