@@ -72,15 +72,15 @@ public class DataHelper {
         return passwordForTest;
     }
 
-    public static List<CardInfo> returnCardsForUser() throws SQLException {
+    public static List<CardInfo> returnCardsForUser() {
         return DataBase.returnCardsForUser(getUserId(returnLoginForTest()));
     }
 
-    public static int returnCardBalance(String cardNumber) throws SQLException {
+    public static int returnCardBalance(String cardNumber) {
         return DataBase.returnCardInfo(cardNumber).getBalance();
     }
 
-    public static void cleanCode() throws SQLException {
+    public static void cleanCode()  {
         DataBase.cleanCode();
     }
 

@@ -35,22 +35,6 @@ public class ApplicationTest {
         }
 
         @Test
-        public void shouldGetUserInfo() {
-            DataBase.getUsers();
-        }
-
-        @Test
-        public void shouldReturnUser() {
-            DataHelper.UserInfo result = DataHelper.getUserByLogin("vasya");
-            System.out.println(result);
-        }
-
-        @Test
-        public void shouldGetCode() {
-            System.out.println("=" + DataBase.getAuthCode("8f6b8826-fdd4-4249-ab4a-9419ab4873e4"));
-        }
-
-        @Test
         public void shouldAuth()  {
             loginPage.enterLogin(returnLoginForTest());
             loginPage.enterPassword(returnPasswordForTest());
@@ -93,25 +77,22 @@ public class ApplicationTest {
         private String cardTwo;
 
         @BeforeAll
-        public void setUp() throws SQLException {
+        public void setUp() {
             DataHelper.cleanCode();
             token = RestHandler.getAuthToken();
             cardOne = DataHelper.returnCardsForUser().get(0).getNumber();
             cardTwo = DataHelper.returnCardsForUser().get(1).getNumber();
+            DataHelper.cleanCode();
         }
 
-        @Test
-        public void shouldGetToken() throws SQLException {
-            System.out.println(RestHandler.getAuthToken());
-        }
 
         @Test
-        public void shouldGetCardInfo() throws SQLException {
+        public void shouldGetCardInfo() {
             System.out.println("result is = " + RestHandler.getCardInfo(token));
         }
 
         @Test
-        public void shouldTransferSum() throws SQLException {
+        public void shouldTransferSum() {
             int amount = 0;
             int initBalance = DataHelper.returnCardBalance(cardOne);
             String result = RestHandler.transferTo(cardOne, cardTwo, amount, token);

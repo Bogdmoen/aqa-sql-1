@@ -23,7 +23,7 @@ public class DataBase {
 
       try (
               val conn = DriverManager.getConnection(
-                      "jdbc:mysql://localhost:3306/app", "app", "pass");
+                      "jdbc:mysql://localhost:3306/app", "app", "pass")
 
       )
       {
@@ -40,10 +40,10 @@ public class DataBase {
         UserInfo user = new UserInfo();
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT * FROM users where login = ?;";
-        ResultSetHandler<UserInfo>  userInfoResultSetHandler = new BeanHandler<UserInfo>(UserInfo.class);
+        ResultSetHandler<UserInfo>  userInfoResultSetHandler = new BeanHandler<>(UserInfo.class);
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass");
+                        "jdbc:mysql://localhost:3306/app", "app", "pass")
 
         )
         {
@@ -61,7 +61,7 @@ public class DataBase {
         QueryRunner runner = new QueryRunner();
         String dataSQL = "SELECT * FROM auth_codes where user_id = ? ORDER BY created desc;";
         try (val conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+                "jdbc:mysql://localhost:3306/app", "app", "pass")
 
                 )
         {
@@ -75,31 +75,41 @@ public class DataBase {
     }
 
 
-    public static List<CardInfo> returnCardsForUser(String userId) throws SQLException {
+    public static List<CardInfo> returnCardsForUser(String userId) {
+        List<CardInfo> cardInfos = new ArrayList<>();
         QueryRunner runner = new QueryRunner();
         String querySQL = "SELECT id, number, ROUND (balance_in_kopecks / 100) as balance FROM cards WHERE user_id = ? ORDER BY number;";
         try (val conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+                "jdbc:mysql://localhost:3306/app", "app", "pass")
         )
         {
-        return runner.query(conn, querySQL, new BeanListHandler<>(DataHelper.CardInfo.class), userId);
+        cardInfos = runner.query(conn, querySQL, new BeanListHandler<>(DataHelper.CardInfo.class), userId);
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        return cardInfos;
     }
 
-    public static DataHelper.CardInfo returnCardInfo(String cardNumber) throws SQLException {
+    public static DataHelper.CardInfo returnCardInfo(String cardNumber) {
+        CardInfo info = new CardInfo();
         QueryRunner runner = new QueryRunner();
         String querySQL = "SELECT id, number, ROUND (balance_in_kopecks / 100) as balance FROM cards WHERE number = ?;";
         try (val conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+                "jdbc:mysql://localhost:3306/app", "app", "pass")
         )
         {
-            return runner.query(conn, querySQL, new BeanHandler<>(DataHelper.CardInfo.class), cardNumber);
+            info = runner.query(conn, querySQL, new BeanHandler<>(DataHelper.CardInfo.class), cardNumber);
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        return info;
     }
 
-
     public static void cleanAll() {
-
         QueryRunner runner = new QueryRunner();
         String clearUser = "DELETE FROM users";
         String clearCode = "DELETE FROM auth_codes;";
@@ -107,7 +117,7 @@ public class DataBase {
         String clearTransactions = "DELETE FROM card_transactions;";
 
         try (val conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+                "jdbc:mysql://localhost:3306/app", "app", "pass")
 
         )
         {
@@ -122,15 +132,19 @@ public class DataBase {
         }
     }
 
-    public static void cleanCode() throws SQLException {
+    public static void cleanCode() {
         QueryRunner runner = new QueryRunner();
         String clearCode = "DELETE FROM auth_codes;";
 
         try (val conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+                "jdbc:mysql://localhost:3306/app", "app", "pass")
         )
         {
             runner.update(conn, clearCode);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
         }
     }
 

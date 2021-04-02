@@ -38,7 +38,7 @@ public class RestHandler {
                 .statusCode(200);
     }
 
-    public static String getAuthToken() throws SQLException {
+    public static String getAuthToken() {
         JsonObject codeInfo = new JsonObject();
         sendAuthInfo();
         String userId = DataHelper.getUserId(returnLoginForTest());
